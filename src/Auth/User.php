@@ -6,6 +6,7 @@ use ArrayAccess;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Password;
@@ -16,12 +17,17 @@ use Statamic\Data\Augmentable;
 use Statamic\Facades;
 use Statamic\Facades\Blueprint;
 use Statamic\Facades\URL;
+use Statamic\Fields\Value;
 use Statamic\Notifications\ActivateAccount as ActivateAccountNotification;
 use Statamic\Notifications\PasswordReset as PasswordResetNotification;
-use Statamic\Support\Arr;
-use Statamic\Fields\Value;
 
-abstract class User implements UserContract, Authenticatable, CanResetPasswordContract, AugmentableContract, ArrayAccess
+abstract class User implements 
+    UserContract, 
+    Authenticatable,
+    CanResetPasswordContract,
+    AugmentableContract,
+    ArrayAccess,
+    AuthorizableContract
 {
     use Authorizable, Notifiable, CanResetPassword, Augmentable;
 
